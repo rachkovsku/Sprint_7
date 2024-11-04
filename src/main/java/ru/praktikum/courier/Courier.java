@@ -3,9 +3,9 @@ package ru.praktikum.courier;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class Courier {
-    private String login;
-    private String password;
-    private String firstName;
+    private final String login;
+    private final String password;
+    private final String firstName;
 
     public String getLogin() {
         return login;

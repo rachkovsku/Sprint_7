@@ -1,7 +1,6 @@
 package ru.praktikum.courier;
 
 import com.google.gson.Gson;
-
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static ru.praktikum.Const.*;
@@ -10,7 +9,7 @@ public class Credentials {
 
     private String login;
     private String password;
-    public int courierId;
+    public static int courierId;
 
 
     public Credentials() {
@@ -43,7 +42,7 @@ public class Credentials {
         return password;
     }
 
-    public void deleteCourierAccount() {
+    public static void deleteCourierAccount() {
         given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
@@ -54,7 +53,7 @@ public class Credentials {
         System.out.println("Учетная запись курьера успешно удалена");
     }
 
-    public void courierIdForDelete(Courier courier) {
+    public static void courierIdForDelete(Courier courier) {
         Gson gson = new Gson();
         String json = gson.toJson(Credentials.from(courier));
         courierId = given().log().all()
@@ -69,6 +68,4 @@ public class Credentials {
                 .path("id");
         System.out.println("id курьера: " + courierId);
     }
-
-
 }

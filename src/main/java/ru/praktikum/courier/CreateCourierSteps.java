@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 
 
-public class CreateCourierSteps extends Const {
+public class CreateCourierSteps {
 
 
     @Step("Запрос POST - создание учетной записи курьера")
@@ -19,21 +19,12 @@ public class CreateCourierSteps extends Const {
                 .baseUri(baseURI)
                 .body(random)
                 .when()
-                .post(API_COURIER_CREATE);
+                .post(Const.API_COURIER_CREATE);
         return response;
     }
 
 
-    @Step("Запрос POST - создание второй индентичной учетной записи курьера")
-    public static Response createIdenticalCourierAccount(Courier courier) {
-        Response responseDouble = given().log().all()
-                .header("Content-type", "application/json")
-                .baseUri(baseURI)
-                .body(Credentials.from(courier))
-                .when()
-                .post(API_COURIER_CREATE);
-        return responseDouble;
-    }
+
 
     @Step("Создание аккаунта курьера с пустым полем \"Login\"")
     public static Response sendPostRequestCreateAccountWithoutLogin() {
@@ -42,7 +33,7 @@ public class CreateCourierSteps extends Const {
                 .baseUri(baseURI)
                 .body(Courier.withOutLogin())
                 .when()
-                .post(API_COURIER_CREATE);
+                .post(Const.API_COURIER_CREATE);
         return response;
     }
 
@@ -53,7 +44,7 @@ public class CreateCourierSteps extends Const {
                 .baseUri(baseURI)
                 .body(Courier.withOutPassword())
                 .when()
-                .post(API_COURIER_CREATE);
+                .post(Const.API_COURIER_CREATE);
         return response;
     }
 
@@ -64,7 +55,7 @@ public class CreateCourierSteps extends Const {
                 .baseUri(baseURI)
                 .body(Courier.withOutFirstName())
                 .when()
-                .post(API_COURIER_CREATE);
+                .post(Const.API_COURIER_CREATE);
         return response;
     }
 

@@ -3,7 +3,6 @@ package ru.praktikum.courier;
 import com.google.gson.Gson;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static ru.praktikum.Const.API_COURIER_LOGIN;
@@ -24,11 +23,11 @@ public class LoginCourierSteps {
 
     @Step("Авторизация несуществующего аккаунта")
     public static Response invalidCourierAccount() {
-        String json = "{\"login\": \"netShustrik\", \"password\": \"555555\"}";
+        CourierLogin courierLogin = new CourierLogin("netShustrik", "555555");
         Response response = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(courierLogin)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response;
@@ -36,12 +35,11 @@ public class LoginCourierSteps {
 
     @Step("Авторизация курьера с невалидным паролем")
     public static Response logInInvalidPasswordCourierAccount(Courier courier) {
-
-        String json = "{\"login\": " + "\"" + courier.getLogin() + "\"" + "," + "\"password\": \"741852\"}";
+        CourierLogin invalidPassword = new CourierLogin(courier.getLogin(), "741852");
         Response response = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(invalidPassword)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response;
@@ -49,11 +47,11 @@ public class LoginCourierSteps {
 
     @Step("Авторизация курьера с невалидным логином")
     public static Response logInInvalidLoginCourierAccount(Courier courier) {
-        String json = "{\"login\": \"netShustrika\"," + "\"password\": " + "\"" + courier.getPassword() + "\"}";
+        CourierLogin invalidLogin = new CourierLogin("netShustrika", courier.getPassword());
         Response response1 = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(invalidLogin)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response1;
@@ -61,22 +59,22 @@ public class LoginCourierSteps {
 
     @Step("Авторизация курьера со значением null в поле \"Login\"")
     public static Response logInNullLoginCourierAccount(Courier courier) {
-        String json = "{\"login\": " + null + "," + "\"password\": " + "\"" + courier.getPassword() + "\"}";
+        CourierLogin nullLogin = new CourierLogin(null, courier.getPassword());
         Response response1 = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(nullLogin)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response1;
     }
     @Step("Авторизация курьера со значением null в поле \"Password\"")
     public static Response logInNullPasswordCourierAccount(Courier courier) {
-        String json = "{\"login\": " + "\"" + courier.getLogin() + "\"," + "\"password\": " + null + "}";
+        CourierLogin nullPassword = new CourierLogin(courier.getLogin(), null);
         Response response1 = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(nullPassword)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response1;
@@ -84,11 +82,11 @@ public class LoginCourierSteps {
 
     @Step("Авторизация курьера при отсутствии в теле запроса пары ключ-значение \"Login\"")
     public static Response logInWithOutLoginCourierAccount(Courier courier) {
-        String json = "{\"password\": " + "\"" + courier.getPassword() + "\"}";
+        CourierLogin withoutLogin = new CourierLogin("", courier.getPassword());
         Response response = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(withoutLogin)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response;
@@ -96,11 +94,11 @@ public class LoginCourierSteps {
 
     @Step("Авторизация курьера при отсутствии в теле запроса пары ключ-значение \"Password\"")
     public static Response logInWithOutPasswordCourierAccount(Courier courier) {
-        String json = "{\"login\": " + "\"" + courier.getLogin() + "\"}";
+        CourierLogin withoutPassword = new CourierLogin(courier.getLogin(), "");
         Response response1 = given().log().all()
                 .header("Content-type", "application/json")
                 .baseUri(baseURI)
-                .body(json)
+                .body(withoutPassword)
                 .when()
                 .post(API_COURIER_LOGIN);
         return response1;

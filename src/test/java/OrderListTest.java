@@ -1,15 +1,15 @@
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
-
+import ru.praktikum.Const;
+import static io.restassured.RestAssured.baseURI;
 import static ru.praktikum.order.OrdersListSteps.*;
 
 public class OrderListTest {
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        baseURI = Const.BaseURI;
     }
 
     @Test

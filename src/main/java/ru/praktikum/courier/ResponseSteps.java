@@ -2,7 +2,6 @@ package ru.praktikum.courier;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static ru.praktikum.Const.*;

@@ -1,14 +1,13 @@
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import ru.praktikum.Const;
 import ru.praktikum.order.OrdersData;
-
 import java.util.List;
-
+import static io.restassured.RestAssured.baseURI;
 import static ru.praktikum.order.OrdersSteps.sendPostRequestOrderSelectScooterColor;
 import static ru.praktikum.order.OrdersSteps.statusCodeAndBodyOrderSelectScooterColor;
 
@@ -32,7 +31,7 @@ public class OrderCreateTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        baseURI = Const.BaseURI;
     }
 
     @Test

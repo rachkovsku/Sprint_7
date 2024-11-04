@@ -3,26 +3,23 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.praktikum.Const;
 import ru.praktikum.courier.Courier;
-import ru.praktikum.courier.Credentials;
-
 import static io.restassured.RestAssured.baseURI;
 import static ru.praktikum.courier.CreateCourierSteps.sendPostRequestCreateCourierAccount;
+import static ru.praktikum.courier.Credentials.deleteCourierAccount;
+import static ru.praktikum.courier.Credentials.courierId;
+import static ru.praktikum.courier.Credentials.courierIdForDelete;
 import static ru.praktikum.courier.LoginCourierSteps.*;
 import static ru.praktikum.courier.ResponseSteps.*;
 
-public class CourierLoginTest extends Credentials {
+public class CourierLoginTest {
     @Before
     public void setUp() {
-        baseURI = "https://qa-scooter.praktikum-services.ru/";
+        baseURI = Const.BaseURI;
     }
 
-    @After
-    public void deleteCourier() {
-        if(courierId > 0) {
-            deleteCourierAccount();
-        }
-    }
+
 
 
     @Test
@@ -61,7 +58,7 @@ public class CourierLoginTest extends Credentials {
 
         Response responseInvalidPassword = logInInvalidPasswordCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithInvalidData(responseInvalidPassword);
-        courierIdForDelete(courier);
+
 
         System.out.println(responseInvalidPassword.body().asString());
     }
@@ -75,7 +72,7 @@ public class CourierLoginTest extends Credentials {
 
         Response responseInvalidLogin = logInInvalidLoginCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithInvalidData(responseInvalidLogin);
-        courierIdForDelete(courier);
+
 
         System.out.println(responseInvalidLogin.body().asString());
 
@@ -89,7 +86,7 @@ public class CourierLoginTest extends Credentials {
 
         Response responseNullLogin = logInNullLoginCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithOutData(responseNullLogin);
-        courierIdForDelete(courier);
+
 
         System.out.println(responseNullLogin.body().asString());
 
@@ -105,7 +102,7 @@ public class CourierLoginTest extends Credentials {
 
         Response responseNullPassword = logInNullPasswordCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithOutData(responseNullPassword);
-        courierIdForDelete(courier);
+
 
         System.out.println(responseNullPassword.body().asString());
 
@@ -120,9 +117,9 @@ public class CourierLoginTest extends Credentials {
 
         Response responseWithOutLogin = logInWithOutLoginCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithOutData(responseWithOutLogin);
-        courierIdForDelete(courier);
 
-        System.out.println(responseWithOutLogin.body().asString());
+
+
 
     }
 
@@ -136,7 +133,7 @@ public class CourierLoginTest extends Credentials {
 
         Response responseWithOutPassword = logInWithOutPasswordCourierAccount(courier);
         statusCodeAndBodyLogInCourierAccountWithOutData(responseWithOutPassword);
-        courierIdForDelete(courier);
+
 
         System.out.println(responseWithOutPassword.body().asString());
 
